@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>IPL Super Over</title>
+        <!-- How should I look -->
+        <style>
+        body{
+            background-color: indigo;
+            padding: 100px;
+        }
+        .team{
+            background-color: white;
+            float: left;
+            width:40%;
+            height:200px;
+            padding:20px;
+            margin-right: 20px;
+        }
+        .winner{
+            background-color: yellowgreen;
+            color: white;
+        }
+        button{
+            width:500px;
+            font-size:32px;
+            padding: 100px;
+            margin-top:50px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="team" id="csk">
+            <h1>CSK</h1>
+            <h2 id="cskRuns">_,_,_,_,_,_</h2>
+            <h2 id="cskScore">0</h2>
+        </div>
+        <div id="mi" class="team">
+            <h1>Mumbai Indians</h1>
+            <h2 id="miRuns">_,_,_,_,_,_</h2>
+            <h2 id="miScore">0</h2>
+        </div>
+        <button onclick="strikeBall()" id="bat"> Strike </button>
+    </body>
+    <!-- How should I work -->
+    <script>
+    var cskRuns = ["_","_","_","_","_","_"];
+    var cskScore = 0;
+    var miRuns = ["_","_","_","_","_","_"];
+    var miScore = 0;
+    var ballCounter = 0;
+
+    function strikeBall(){
+        ballCounter = ballCounter + 1;
+        // alert("I am clicked");
+        // Step 1: Scoring - 0,2,4,6,8 . 8 = Wicket
+        // Math.random => [0,1)
+        var run = Math.floor(Math.random()*5)*2;
+        if(run == 8) run ="W";
+        // alert(run);
+
+        // Step 2: CSK Batting and scoring
+        if(ballCounter <= 6)
+        {
+            if(run != "W")
+                cskScore = cskScore + run;
+            document.getElementById('cskScore').textContent = cskScore;
+            cskRuns[ballCounter-1] = run;
+            document.getElementById('cskRuns').textContent = cskRuns;
+        }else if(ballCounter <=12){
+            if(run != "W")
+                miScore = miScore + run;
+            document.getElementById('miScore').textContent = miScore;
+            miRuns[ballCounter-7] = run;
+            document.getElementById('miRuns').textContent = miRuns;
+        }
+        else{
+            // Declare winner winner chicken dinner
+            document.getElementById('bat').disabled = true;
+            var maxScore = Math.max(cskScore,miScore);
+            // If csk wins 
+            if(cskScore == maxScore)
+            {
+                document.getElementById('csk').classList.add('winner');
+            }
+            // If mi wins
+            if(miScore == maxScore)
+            {
+                document.getElementById('mi').classList.add('winner');
+            }
+            
+        }
+
+    }
+    </script>
+</html>
