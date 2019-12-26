@@ -71,8 +71,12 @@
             document.getElementById('miScore').textContent = miScore;
             miRuns[ballCounter-7] = run;
             document.getElementById('miRuns').textContent = miRuns;
+
+            if(miScore>cskScore)
+                ballCounter = 12;    
         }
-        else{
+        if(ballCounter>=12)
+        {
             // Declare winner winner chicken dinner
             document.getElementById('bat').disabled = true;
             var maxScore = Math.max(cskScore,miScore);
